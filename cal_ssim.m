@@ -1,6 +1,6 @@
 function ssim  =  cal_ssim( im1, im2, b_row, b_col )
 
-[h, w, ch]  =  size( im1 );
+[h w ch]  =  size( im1 );
 ssim  = 0;
 if ch==1
     ssim   = ssim_index( im1(b_row+1:h-b_row, b_col+1:w-b_col), im2( b_row+1:h-b_row, b_col+1:w-b_col) );
@@ -91,7 +91,7 @@ function [mssim, ssim_map] = ssim_index(img1, img2, K, window, L)
 %========================================================================
 
 
-if (nargin < 2 || nargin > 5)
+if (nargin < 2 | nargin > 5)
    mssim = -Inf;
    ssim_map = -Inf;
    return;
@@ -103,10 +103,10 @@ if (size(img1) ~= size(img2))
    return;
 end
 
-[M, N] = size(img1);
+[M N] = size(img1);
 
 if (nargin == 2)
-   if ((M < 11) || (N < 11))
+   if ((M < 11) | (N < 11))
 	   mssim = -Inf;
 	   ssim_map = -Inf;
       return
@@ -118,7 +118,7 @@ if (nargin == 2)
 end
 
 if (nargin == 3)
-   if ((M < 11) || (N < 11))
+   if ((M < 11) | (N < 11))
 	   mssim = -Inf;
 	   ssim_map = -Inf;
       return
@@ -126,7 +126,7 @@ if (nargin == 3)
    window = fspecial('gaussian', 11, 1.5);
    L = 255;
    if (length(K) == 2)
-      if (K(1) < 0 || K(2) < 0)
+      if (K(1) < 0 | K(2) < 0)
 		   mssim = -Inf;
    		ssim_map = -Inf;
 	   	return;
@@ -139,15 +139,15 @@ if (nargin == 3)
 end
 
 if (nargin == 4)
-   [H, W] = size(window);
-   if ((H*W) < 4 || (H > M) || (W > N))
+   [H W] = size(window);
+   if ((H*W) < 4 | (H > M) | (W > N))
 	   mssim = -Inf;
 	   ssim_map = -Inf;
       return
    end
    L = 255;
    if (length(K) == 2)
-      if (K(1) < 0 || K(2) < 0)
+      if (K(1) < 0 | K(2) < 0)
 		   mssim = -Inf;
    		ssim_map = -Inf;
 	   	return;
@@ -160,14 +160,14 @@ if (nargin == 4)
 end
 
 if (nargin == 5)
-   [H, W] = size(window);
-   if ((H*W) < 4 || (H > M) || (W > N))
+   [H W] = size(window);
+   if ((H*W) < 4 | (H > M) | (W > N))
 	   mssim = -Inf;
 	   ssim_map = -Inf;
       return
    end
    if (length(K) == 2)
-      if (K(1) < 0 || K(2) < 0)
+      if (K(1) < 0 | K(2) < 0)
 		   mssim = -Inf;
    		ssim_map = -Inf;
 	   	return;
@@ -194,7 +194,7 @@ sigma1_sq = filter2(window, img1.*img1, 'valid') - mu1_sq;
 sigma2_sq = filter2(window, img2.*img2, 'valid') - mu2_sq;
 sigma12 = filter2(window, img1.*img2, 'valid') - mu1_mu2;
 
-if (C1 > 0 && C2 > 0)
+if (C1 > 0 & C2 > 0)
    ssim_map = ((2*mu1_mu2 + C1).*(2*sigma12 + C2))./((mu1_sq + mu2_sq + C1).*(sigma1_sq + sigma2_sq + C2));
 else
    numerator1 = 2*mu1_mu2 + C1;
