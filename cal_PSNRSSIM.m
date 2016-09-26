@@ -1,22 +1,24 @@
 clear;
-GT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_MeanImage\';
-GT_fpath = fullfile(GT_Original_image_dir, '*.png');
-TT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_CSF\';
-TT_fpath = fullfile(TT_Original_image_dir, '*.png');
-GT_im_dir  = dir(GT_fpath);
-TT_im_dir  = dir(TT_fpath);
-im_num = length(TT_im_dir);
 
-method = 'CSF';
-
-PSNR = [];
-SSIM = [];
+Original_image_dir  =    '3_Results/';
+Denoised_image_dir  =    '3_Results/';
+fpath = fullfile(Original_image_dir, '*mean.png');
+im_dir  = dir(fpath);
+im_num = length(im_dir);
+PSNR = zeros(1,im_num);
+SSIM = zeros(1,im_num);
 for i = 1:im_num
-    IM = im2double(imread( fullfile(TT_Original_image_dir,TT_im_dir(i).name) ));
-    IM_GT = im2double(imread(fullfile(GT_Original_image_dir, GT_im_dir(i).name)));
-    PSNR = [PSNR csnr( IM*255,IM_GT*255, 0, 0 )];
-    SSIM = [SSIM cal_ssim( IM*255, IM_GT*255, 0, 0 )];
+    %% read clean image
+    IMname = regexp(im_dir(i).name, '\.', 'split');
+    IMname = IMname{1};
+    IMin0=im2double(imread(fullfile(Original_image_dir, im_dir(i).name)));
+    imname = ['NI_5dmark3_iso3200_' num2str(i) '_real_filtered.jpg'];
+    IMin=im2double(imread(fullfile(Denoised_image_dir, imname)));
+    PSNR(i) = csnr( IMin*255,IMin0*255, 0, 0 );
+    SSIM(i)  =  cal_ssim( IMin*255, IMin0*255, 0, 0 );
 end
 mPSNR = mean(PSNR);
 mSSIM = mean(SSIM);
-save(['C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\', method, '_CCNoise.mat'],'PSNR','mPSNR','SSIM','mSSIM');
+fprintf('The average PSNR = %2.4f, SSIM = %2.4f. \n', mPSNR,mSSIM);
+result = ['NI_Canon_EOS_5D_Mark3_ISO_3200_real.mat'];
+save(result,'PSNR','SSIM','mPSNR','mSSIM');
