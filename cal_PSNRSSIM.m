@@ -1,13 +1,13 @@
 clear;
 GT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_ccnoise_denoised_part\';
 GT_fpath = fullfile(GT_Original_image_dir, '*mean.png');
-TT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_Online\';
-TT_fpath = fullfile(TT_Original_image_dir, '*_real.png');
+TT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_ccnoise_denoised_part\';
+TT_fpath = fullfile(TT_Original_image_dir, '*_ours.png');
 GT_im_dir  = dir(GT_fpath);
 TT_im_dir  = dir(TT_fpath);
 im_num = length(TT_im_dir);
 
-method = 'Real_Online';
+method = 'Real_ccnoise_denoised_part';
 
 PSNR = [];
 SSIM = [];
