@@ -1,4 +1,4 @@
-function D = displayDictionaryElementsAsImage(D, numRows, numCols,X,Y,sortVarFlag)
+function D = displayDictionaryElementsAsImage(D, numRows, numCols,X,Y,channel)
 % function I = displayDictionaryElementsAsImage(D, numRows, numCols, X,Y)
 % displays the dictionary atoms as blocks. For activation, the dictionary D
 % should be given, as also the number of rows (numRows) and columns
@@ -7,16 +7,12 @@ function D = displayDictionaryElementsAsImage(D, numRows, numCols,X,Y,sortVarFla
 
 
 borderSize = 1;
-columnScanFlag = 1;
 strechEachVecFlag = 1;
 showImFlag = 1;
 
 if (isempty(who('X')))
     X = 8;
     Y = 8;
-end
-if (isempty(who('sortVarFlag')))
-    sortVarFlag = 1;
 end
 
 numElems = size(D,2);
@@ -34,12 +30,14 @@ end
 % D = reshape(D,[X Y]);
 %%% sort the elements, if necessary.
 %%% construct the image to display (I)
-sizeForEachImage = sqrt(size(D,1))+borderSize;
+patch_size_square = size(D,1)/channel;
+patch_size = sqrt(patch_size_square);
+sizeForEachImage = patch_size+borderSize;
 I = zeros(sizeForEachImage*numRows+borderSize,sizeForEachImage*numCols+borderSize,3);
 %%% fill all this image in blue
 I(:,:,1) = 0;%min(min(D));
 I(:,:,2) = 0; %min(min(D));
-I(:,:,3) = 1; %max(max(D));
+I(:,:,3) = 0; %max(max(D));
 
 %%% now fill the image squares with the elements (in row scan or column
 %%% scan).
@@ -67,20 +65,10 @@ end
 counter=1;
 for j = 1:numRows
     for i = 1:numCols
-%         if (strechEachVecFlag)
-%             D(:,counter) = D(:,counter)-min(D(:,counter));
-%             D(:,counter) = D(:,counter)./max(D(:,counter));
-%         end
-%         if (columnScanFlag==1)
-%             I(borderSize+(i-1)*sizeForEachImage+1:i*sizeForEachImage,borderSize+(j-1)*sizeForEachImage+1:j*sizeForEachImage,1)=reshape(D(:,counter),8,8);
-%             I(borderSize+(i-1)*sizeForEachImage+1:i*sizeForEachImage,borderSize+(j-1)*sizeForEachImage+1:j*sizeForEachImage,2)=reshape(D(:,counter),8,8);
-%             I(borderSize+(i-1)*sizeForEachImage+1:i*sizeForEachImage,borderSize+(j-1)*sizeForEachImage+1:j*sizeForEachImage,3)=reshape(D(:,counter),8,8);
-%         else
             % Go in Column Scan:
-            I(borderSize+(j-1)*sizeForEachImage+1:j*sizeForEachImage,borderSize+(i-1)*sizeForEachImage+1:i*sizeForEachImage,1)=reshape(D(:,counter),X,Y);
-            I(borderSize+(j-1)*sizeForEachImage+1:j*sizeForEachImage,borderSize+(i-1)*sizeForEachImage+1:i*sizeForEachImage,2)=reshape(D(:,counter),X,Y);
-            I(borderSize+(j-1)*sizeForEachImage+1:j*sizeForEachImage,borderSize+(i-1)*sizeForEachImage+1:i*sizeForEachImage,3)=reshape(D(:,counter),X,Y);
-%         end
+            I(borderSize+(j-1)*sizeForEachImage+1:j*sizeForEachImage,borderSize+(i-1)*sizeForEachImage+1:i*sizeForEachImage,1)=reshape(D(1:patch_size_square,counter),X,Y);
+            I(borderSize+(j-1)*sizeForEachImage+1:j*sizeForEachImage,borderSize+(i-1)*sizeForEachImage+1:i*sizeForEachImage,2)=reshape(D(patch_size_square+1:2*patch_size_square,counter),X,Y);
+            I(borderSize+(j-1)*sizeForEachImage+1:j*sizeForEachImage,borderSize+(i-1)*sizeForEachImage+1:i*sizeForEachImage,3)=reshape(D(2*patch_size_square+1:3*patch_size_square,counter),X,Y);
         counter = counter+1;
     end
 end
