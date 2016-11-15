@@ -1,12 +1,12 @@
 clear;
-% GT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_MeanImage\';
-% GT_fpath = fullfile(GT_Original_image_dir, '*.png');
-% TT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_NoisyImage\';
-% TT_fpath = fullfile(TT_Original_image_dir, '*.png');
-GT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_ccnoise_denoised_part\';
-GT_fpath = fullfile(GT_Original_image_dir, '*mean.png');
-TT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_ccnoise_denoised_part\';
-TT_fpath = fullfile(TT_Original_image_dir, '*real.png');
+GT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_MeanImage\';
+GT_fpath = fullfile(GT_Original_image_dir, '*.png');
+TT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_NoisyImage\';
+TT_fpath = fullfile(TT_Original_image_dir, '*.png');
+% GT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_ccnoise_denoised_part\';
+% GT_fpath = fullfile(GT_Original_image_dir, '*mean.png');
+% TT_Original_image_dir = 'C:\Users\csjunxu\Desktop\CVPR2017\cc_Results\Real_ccnoise_denoised_part\';
+% TT_fpath = fullfile(TT_Original_image_dir, '*real.png');
 GT_im_dir  = dir(GT_fpath);
 TT_im_dir  = dir(TT_fpath);
 im_num = length(TT_im_dir);
@@ -17,7 +17,7 @@ guideddir = 'Real_Guided';
 if im_num==60
     load cc_Results/GuideBetterIndex.mat;
 end
-for j = 3
+for j = 1
     if im_num==60
         i = index(j);
     else
@@ -26,8 +26,8 @@ for j = 3
     fprintf('%s: \n',TT_im_dir(i).name);
     S = regexp(TT_im_dir(i).name, '\.', 'split');
     im = S{1};
-    h = 60;
-    w = 150;
+    h = 240;
+    w = 280;
     s = 60;
     f = 4;
     lr = 1;
@@ -79,15 +79,15 @@ for j = 3
     fprintf('MLP: PSNR/SSIM = (%2.2fdB/%2.4f) \n', PSNR, SSIM);
     
     
-    %     %% CSF
-    %     image = imread(sprintf('cc_Results/Real_CSF/CSF_%s.png',im));
-    %     [ outputimage ] = boxandresize( image, h,w,s, f,lr);
-    %     imname = sprintf('br_CSF_%s.png',im);
-    %     imwrite(outputimage,imname,'png');
-    %     image = im2double(imread(sprintf('cc_Results/Real_CSF/CSF_%s.png',im)));
-    %     PSNR = csnr( image*255, IM_GT*255, 0, 0 );
-    %     SSIM = cal_ssim( image*255, IM_GT*255, 0, 0 );
-    %     fprintf('CSF: PSNR/SSIM = (%2.2fdB/%2.4f) \n', PSNR, SSIM);
+    %% CSF
+    image = imread(sprintf('cc_Results/Real_CSF/CSF_%s.png',im));
+    [ outputimage ] = boxandresize( image, h,w,s, f,lr);
+    imname = sprintf('br_CSF_%s.png',im);
+    imwrite(outputimage,imname,'png');
+    image = im2double(imread(sprintf('cc_Results/Real_CSF/CSF_%s.png',im)));
+    PSNR = csnr( image*255, IM_GT*255, 0, 0 );
+    SSIM = cal_ssim( image*255, IM_GT*255, 0, 0 );
+    fprintf('CSF: PSNR/SSIM = (%2.2fdB/%2.4f) \n', PSNR, SSIM);
     
     %% TRD
     image = imread(sprintf('cc_Results/Real_TRD/TRD_%s.png',im));
@@ -165,11 +165,11 @@ for j = 3
     %     fprintf('Online: PSNR/SSIM = (%2.2fdB/%2.4f) \n', PSNR, SSIM);
     
     %     Guided
-    image = imread(sprintf('cc_Results/%s/Guided_%s_real.png',guideddir,im));
+    image = imread(sprintf('cc_Results/%s/Guided_%s.png',guideddir,im));
     [ outputimage ] = boxandresize( image, h,w,s, f,lr);
     imname = sprintf('br_Guided_%s.png',im);
     imwrite(outputimage,imname,'png');
-    image = im2double(imread(sprintf('cc_Results/%s/Guided_%s_real.png',guideddir,im)));
+    image = im2double(imread(sprintf('cc_Results/%s/Guided_%s.png',guideddir,im)));
     PSNR = csnr( image*255, IM_GT*255, 0, 0 );
     SSIM = cal_ssim( image*255, IM_GT*255, 0, 0 );
     fprintf('Guided: PSNR/SSIM = (%2.2fdB/%2.4f) \n', PSNR, SSIM);
