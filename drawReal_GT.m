@@ -14,23 +14,23 @@ im_num = length(TT_im_dir);
 guideddir = 'Real_Guided';
 % Real_Guided_EI_II_faster
 % Real_Guided
-if im_num==60
-    load cc_Results/GuideBetterIndex.mat;
-end
-for j = 1
-    if im_num==60
-        i = index(j);
-    else
+% if im_num==60
+%     load cc_Results/GuideBetterIndex.mat;
+% end
+for j = 60
+%     if im_num==60
+%         i = index(j);
+%     else
         i= j;
-    end
+%     end
     fprintf('%s: \n',TT_im_dir(i).name);
     S = regexp(TT_im_dir(i).name, '\.', 'split');
     im = S{1};
-    h = 240;
-    w = 280;
+    h = 180;
+    w = 360;
     s = 60;
     f = 4;
-    lr = 1;
+    lr = 2 ;
     %% GT
     image = imread(fullfile(GT_Original_image_dir, GT_im_dir(i).name));
     [ outputimage ] = boxandresize( image, h,w,s, f,lr);
@@ -174,6 +174,7 @@ for j = 1
     SSIM = cal_ssim( image*255, IM_GT*255, 0, 0 );
     fprintf('Guided: PSNR/SSIM = (%2.2fdB/%2.4f) \n', PSNR, SSIM);
 end
+
 %     %% DSCDL
 %     image = imread(sprintf('cc_Results/Real_DSCDL/DSCDL_%s.png',im));
 %     [ outputimage ] = boxandresize( image, h,w,s, f,lr);
