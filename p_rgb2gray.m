@@ -3,8 +3,8 @@ fpath       =   fullfile(Original_image_dir, '*.bmp');
 im_dir      =   dir(fpath);
 im_num      =   length(im_dir);
 
-for  i  =  1 : im_num
-    RGB         =  imread(fullfile(Original_image_dir, im_dir(i).name));
+for  i = 1 : im_num
+    RGB = imread(fullfile(Original_image_dir, im_dir(i).name));
     S = regexp(im_dir(i).name, '\.', 'split');
     fprintf('%s.\n',im_dir(i).name);
     GRAY = rgb2gray(RGB);
