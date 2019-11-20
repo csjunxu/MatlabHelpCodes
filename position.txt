@@ -1,0 +1,125 @@
+% %% case 1
+% im = 'house';
+% nSig = 40;
+% h = 100;
+% w =30;
+% s =40;
+% f =3;
+% lr =1;
+
+% %% case 2
+% im = 'hill';
+% nSig = 50;
+% h =140;
+% w = 130;
+% s =50;
+% f =5;
+% lr = 1;
+
+% %% case 3
+% im = 'couple';
+% nSig = 30;
+% h = 140;
+% w =110;
+% s =50;
+% f =5;
+% lr =1;
+
+% %% case4
+% im = 'elaine';
+% nSig = 30;
+% h = 140;
+% w =110;
+% s =50;
+% f =5;
+% lr =1;
+
+% %% case 5
+% im = 'peppers';
+% nSig = 40;
+% h = 140;
+% w =110;
+% s =50;
+% f =5;
+% lr = 1;
+
+% %% case 6
+% im = 'monarch';
+% nSig = 40;
+% h = 70;
+% w =175;
+% s =35;
+% f = 4;
+% lr = 2;
+
+% %% case 7
+% im = 'airfield';
+% nSig = 50;
+% h = 300;
+% w =400;
+% s =50;
+% f =5;
+% lr = 2;
+
+% %% case 8
+% im = 'airplane';
+% nSig = 50;
+% h = 150;
+% w = 100;
+% s =60;
+% f =4;
+% lr = 1;
+
+% %% case 9
+% im = 'carhouse';
+% nSig = 50;
+% h = 210;
+% w = 110;
+% s =50;
+% f =5;
+% lr =1;
+
+% %% case 10
+% im = 'cameraman';
+% nSig = 75;
+% h = 200;
+% w = 30;
+% s =40;
+% f =3;
+% lr = 1;
+
+% %% case 11
+% im = 'leaves';
+% nSig = 75;
+% h = 100;
+% w =25;
+% s =50;
+% f =3;
+% lr =1;
+
+% %% case 12
+% im = 'man';
+% nSig = 75;
+% h = 200;
+% w = 50;
+% s =90;
+% f =3;
+% lr = 1;
+
+% %% case 13
+% im = 'hill';
+% nSig = 75;
+% h =280;
+% w = 80;
+% s =40;
+% f =7;
+% lr = 1;
+
+% %% case 14
+% im = 'barbara';
+% nSig = 40;
+% h = 100;
+% w =30;
+% s =40;
+% f =3;
+% lr =1;
